@@ -1,0 +1,24 @@
+database:
+  driver: postgresql+psycopg2
+  host: postgres
+  port: 5432
+  database: airflow
+  user: airflow
+  password: airflow
+
+tables:
+  dim_users: 
+    target_table: dim_users
+    primary_key: user_id
+    upload_logic: upsert
+  dim_actions: 
+    target_table: dim_actions
+    primary_key: action_type
+    upload_logic: upsert
+  fact_user_actions: 
+    target_table: fact_user_actions
+    primary_key: ['user_id', 'timestamp']
+    upload_logic: upsert
+    
+paths:
+  raw_data: data/raw_logs.json
